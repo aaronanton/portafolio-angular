@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainDataService } from '../../services/main-data.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,7 +11,7 @@ export class FooterComponent implements OnInit {
   //PROPIEDAD. instruccion de angular para el anio dinamico del footer
   anio: number = new Date().getFullYear();
 
-  constructor() { }
+  constructor( public _mainData: MainDataService ) { } //se inyecta el servicio MainDataService en la propiedad _mainData
 
   ngOnInit(): void {
   }
