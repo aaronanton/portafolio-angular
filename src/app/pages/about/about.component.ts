@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainDataService } from '../../services/main-data.service';
 
 @Component({
   selector: 'app-about',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor( public _mainData: MainDataService ) { } //se inyecta el servicio MainDataService en la propiedad _mainData
 
   ngOnInit(): void {
   }
