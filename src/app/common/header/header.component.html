@@ -33,14 +33,24 @@
                     <a routerLink="about" class="rk-menu__link">About</a>
                 </li>
             </ul>
-            <form class="rk-search">
-                <input type="text" placeholder="Search" id="urku-search" class="rk-search-field">
-            <label for="urku-search">
+            <!-- <form class="rk-search">se sustituye por un <div> para no importar el FormModule -->
+            <div class="rk-search">
+                <!-- keyup.enter evento para escuchar el enter y llamar al otro evento buscarProduco() -->
+                <!-- #txtBuscar se usa como referencia a caja de texto ya que no estoy usando el formModule para usar el id -->
+                <input type="text"
+                        (keyup.enter)="buscarProducto( txtBuscar.value )"
+                        placeholder="Buscar.."
+                        id="urku-search"
+                        class="rk-search-field"
+                        se
+                        #txtBuscar>
+                <label for="urku-search">
                 <svg>
                     <use xlink:href="assets/img/symbols.svg#icon-search"></use>
                 </svg>
             </label>
-            </form>
+            <!-- </form>se sustituye por un <div> para no importar el FormModule -->
+            </div>
         </nav>
     </div>
 </header>

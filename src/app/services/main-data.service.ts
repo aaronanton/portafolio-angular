@@ -10,10 +10,12 @@ export class MainDataService {
   data:any = {};
   cargada = false; //para el SVG loading icon
 
+  productoFiltrado = [];
+
   constructor( private http: HttpClient ) { // se importa HttpClientModule en el servicio y en el app.module.ts
 
     this.cargarInfo();   //se cargan las dos funciones creadas abajo para hacer las consultas http
-    this.cargarEquipo();    
+    this.cargarData();    
   }
 
   private cargarInfo()  {
@@ -24,9 +26,10 @@ export class MainDataService {
         //console.log(resp);
       });
   }
-  private cargarEquipo()  {
-
-    this.http.get('https://angular-portafolio-2c2e6.firebaseio.com/.json')
+  private cargarData()  {
+    
+    return new Promise( (resolve, reject) => {
+      this.http.get('https://angular-portafolio-2c2e6.firebaseio.com/.json')
       .subscribe( resp =>  {
         this.data = resp;
         //console.log(resp);
@@ -36,6 +39,7 @@ export class MainDataService {
         }, 1000);
 
         console.log("mainData .OK!");
+        resolve();
 
 
       // .subscribe( (resp:any) => {
@@ -43,6 +47,44 @@ export class MainDataService {
 
       // .subscribe( resp => {
       //   console.log(resp['tw']);
-      });
+      });      
+    });
+
   }
+  getProducto(id:string){
+    return this.http.get(`https://angular-portafolio-2c2e6.firebaseio.com/productos/${ id }.json`);
+  }
+
+  buscarProducto(termino:string){
+
+    if ( this.data.productos_idx === 0 ) {
+      //cargar producto
+      this.cargarData().then(()=>{
+        //ejecutar despues de tener los productos
+        //aplicar filtro
+        this.filtrarProductos( termino );
+      })
+    } else {
+      //aplicar el filtro
+      this.filtrarProductos( termino );
+      }    
+    }
+
+    private filtrarProductos( termino:string ){
+      
+      console.log(this.data.productos_idx);
+      this.productoFiltrado = [];
+
+      termino = termino.toLowerCase();
+      
+      //**NEW probar con filter instead forEach*/
+      this.data.productos_idx.forEach( prod => {
+        
+        const tituloLower = prod.titulo.toLowerCase();
+
+        if ( prod.categoria.indexOf(termino) >= 0 || tituloLower.indexOf(termino) >= 0 ) {
+          this.productoFiltrado.push(prod);
+        }
+      });
+    }
 }

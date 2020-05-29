@@ -1,6 +1,3 @@
-<!-- **PORTAFOLIO** -->
-<section class="ae-container-fluid ae-container-fluid--inner rk-portfolio">
-
 <!-- SVG Loading aparece segun la condicion del *ngIf-->
 <div align="center" *ngIf="!_mainData.cargada" class="loader loader--style1" title="0">
     <h4>Cargando</h4>
@@ -27,7 +24,7 @@
     <!-- *ngFor para for loop del arreglo traido desde _mainData -->
     <!-- routerLink="/item"  **** se usa "/" para definir que no es una ruta hija sino raiz -->
     <!-- [routerLink]="['/item', i.cod]" las llaves se usan lara indicarle a ng que la variable sera dinamica -->
-    <a *ngFor="let i of _mainData.data.productos_idx" [routerLink]="['/item', i.cod]" class="rk-item ae-masonry__item">
+    <a *ngFor="let i of _mainData.productoFiltrado" [routerLink]="['/item', i.cod]" class="rk-item ae-masonry__item">
         <img src="assets/productos/{{i.url}}.jpg" alt="">
         <div class="item-meta">
             <h2>{{i.titulo}}</h2>
@@ -48,5 +45,3 @@
         </div>
     </a> -->
 </div>
-</section>
-    
